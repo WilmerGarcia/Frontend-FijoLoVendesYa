@@ -22,7 +22,7 @@ const CompRegistrarVentas = () => {
   //Procedimiento guardar
   const store = async (e) => {
     e.preventDefault();
-    await axios.post(URI, {
+    await axios.post(URI,{
       //idVenta: idVenta,
       //idUsuario: idUsuario,
       estado: estado,
@@ -31,7 +31,7 @@ const CompRegistrarVentas = () => {
       descripcion: descripcion,
       categoria: categoria,
       precio: precio,
-    });
+    }, {withCredentials: true});
     router.push("/listarVenta");
   };
 

@@ -18,7 +18,7 @@ const CompMostrarVentas = () => {
 
     //PROCEDIMIENTO PARA OBTENER TODOS LAS VENTAS
     const getVentas = async () => {
-        const response = await axios.get(URI)
+        const response = await axios.get(URI, {withCredentials: true})
         //then((response) => { console.log(response) })
         setVentas(response.data)
     }

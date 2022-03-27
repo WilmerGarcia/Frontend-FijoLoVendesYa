@@ -38,7 +38,7 @@ export function LoginForm(props) {
       .post("http://localhost:4000/api/tienda/login", {
         correo: correo,
         pass: pass,
-      })
+      }, {withCredentials: true})
       .then((response) => {
         swal({
           title: "LOGIN EXITOSO",

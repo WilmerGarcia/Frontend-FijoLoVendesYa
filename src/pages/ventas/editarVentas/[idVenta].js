@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 const URI = "http://localhost:4000/api/tienda/editarVenta/";
 
 const CompEditarVentas = () => {
+  
   const [idUsuario, setIdUsuario] = useState("");
   const [estado, setEstado] = useState("");
   const [cantidad, setCantidad] = useState("");
@@ -14,10 +15,12 @@ const CompEditarVentas = () => {
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
   const [fechaPublicacion, setFechaPublicacion] = useState("");
+  
 
   const router = useRouter();
-  const { query } = router;
-  console.log(query);
+  const {idVenta} = router.query;
+  //const { query } = router;
+  //console.log(query);
 
   //const { idVenta } = useParams()
 
@@ -42,8 +45,9 @@ const CompEditarVentas = () => {
   }, []);
 
   const getVentaById = async () => {
+    
     const response = await axios.get(
-      "http://localhost:4000/api/tienda/buscarVenta/" + idVenta
+      "http://localhost:4000/api/tienda/buscarVenta/" + [idVenta], {withCredentials: true}
     );
     setEstado(response.data.estado);
     setCantidad(response.data.cantidad);
@@ -96,7 +100,7 @@ const CompEditarVentas = () => {
             className="form-control form-check-input"
             checked
           ></input>
-          <label class="form-check-label" for="exampleRadios1">
+          <label className="form-check-label" for="exampleRadios1">
             Disponible
           </label>
           <input
