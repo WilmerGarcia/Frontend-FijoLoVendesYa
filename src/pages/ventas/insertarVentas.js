@@ -22,17 +22,21 @@ const CompRegistrarVentas = () => {
   //Procedimiento guardar
   const store = async (e) => {
     e.preventDefault();
-    await axios.post(URI,{
-      //idVenta: idVenta,
-      //idUsuario: idUsuario,
-      estado: estado,
-      producto: producto,
-      cantidad: cantidad,
-      descripcion: descripcion,
-      categoria: categoria,
-      precio: precio,
-    }, {withCredentials: true});
-    router.push("/listarVenta");
+    await axios.post(
+      URI,
+      {
+        //idVenta: idVenta,
+        //idUsuario: idUsuario,
+        estado: estado,
+        producto: producto,
+        cantidad: cantidad,
+        descripcion: descripcion,
+        categoria: categoria,
+        precio: precio,
+      },
+      { withCredentials: true }
+    );
+    router.push("/ventas/mostrarVentas");
   };
 
   return (

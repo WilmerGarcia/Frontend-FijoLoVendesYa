@@ -7,6 +7,19 @@ import "../styles/css/font.css";
 import "../styles/css/App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "../../src/components/SliderHome/styles.css";
+import "../../src/components/carousel/CarouselDemo.css";
+import "../../src/components/carousel/index.css";
+
+import "primeicons/primeicons.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.css";
+import "primeflex/primeflex.css";
+import "../components/carousel/CarouselDemo.css";
+
 function MyApp({ Component, pageProps }) {
   return (
     <>

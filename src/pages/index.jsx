@@ -1,18 +1,24 @@
 import Button from "../components/button";
 import NavAndFooter from "../layouts/NavAndFooter";
-import ImageSlider from "../components/Slider/Slider";
-import Slider from "react-slick";
+import ImageSliderHome from "../components/SliderHome/Slider";
+import CarouselDemo from "../components/carousel/CarouselDemo";
+
+//import Slider from "react-slick";
 import styled from "@emotion/styled";
 
-const Container = styled.div``;
+const Container = styled.div`
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const index = () => {
   return (
     <NavAndFooter>
-      <div className="container mt-5 carousel">
-        <h1 className="slider_title"></h1>
-        <ImageSlider />
-      </div>
+      <ImageSliderHome />
+      <Container>
+        <CarouselDemo />
+      </Container>
     </NavAndFooter>
   );
 };
