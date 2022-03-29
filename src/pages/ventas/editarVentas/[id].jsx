@@ -6,54 +6,65 @@ import { useRouter } from "next/router";
 const URI = "http://localhost:4000/api/tienda/editarVenta/";
 
 const CompEditarVentas = () => {
-  
   const [idUsuario, setIdUsuario] = useState("");
   const [estado, setEstado] = useState("");
-  const [cantidad, setCantidad] = useState("");
+  const [cantidad, setCantidad] = useState(0);
   const [producto, setProducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [precio, setPrecio] = useState("");
+  const [precio, setPrecio] = useState(0);
   const [fechaPublicacion, setFechaPublicacion] = useState("");
-  
 
   const router = useRouter();
-  const {idVenta} = router.query;
-  //const { query } = router;
-  //console.log(query);
+  const {
+    id: idVenta,
+    idUsuario: usuario,
+    cantidad: cantidadVenta,
+    categoria: categoriaVenta,
+  } = router.query;
 
   //const { idVenta } = useParams()
 
+  console.log(router.query);
   //Procedimiento para actualizar
   const update = async (e) => {
     e.preventDefault();
-    await axios.put(URI + idVenta, {
-      idUsuario: idUsuario,
-      estado: estado,
-      cantidad: cantidad,
-      producto: producto,
-      descripcion: descripcion,
-      categoria: categoria,
-      precio: precio,
-      fechaPublicacion: fechaPublicacion,
-    });
-    router.push("/listarVenta");
+    await axios.put(
+      URI + idVenta,
+      {
+        idUsuario: idUsuario,
+        estado: estado,
+        cantidad: cantidad,
+        producto: producto,
+        descripcion: descripcion,
+        categoria: categoria,
+        precio: precio,
+        fechaPublicacion: fechaPublicacion,
+      },
+      { withCredentials: true }
+    );
+    router.push("/ventas/mostrarVentas");
   };
+
+  useEffect(() => {
+    setCantidad(Number(cantidadVenta));
+    setCategoria(categoriaVenta);
+  }, [cantidadVenta, categoriaVenta]);
 
   useEffect(() => {
     getVentaById();
   }, []);
 
   const getVentaById = async () => {
-    
     const response = await axios.get(
-      "http://localhost:4000/api/tienda/buscarVenta/" + [idVenta], {withCredentials: true}
+      `http://localhost:4000/api/tienda/buscarVenta/${idVenta}`,
+      { withCredentials: true }
     );
     setEstado(response.data.estado);
     setCantidad(response.data.cantidad);
     setProducto(response.data.producto);
     setDescripcion(response.data.descripcion);
-    setCantidad(response.data.categoria);
+    setCategoria(response.data.categoria);
     setPrecio(response.data.precio);
     setFechaPublicacion(response.data.fechaPublicacion);
   };
@@ -84,7 +95,7 @@ const CompEditarVentas = () => {
         <div className="mb-3">
           <label className="form-label">idUsuario</label>
           <input
-            value={idUsuario}
+            value={usuario}
             onChange={(e) => setIdUsuario(e.target.value)}
             type="number"
             className="form-control"
@@ -175,4 +186,5 @@ const CompEditarVentas = () => {
     </div>
   );
 };
+
 export default CompEditarVentas;

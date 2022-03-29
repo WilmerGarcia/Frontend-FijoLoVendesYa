@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-//import { Controller, useForm } from "react-hook-form";
-//import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-//import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 
 //NOS AYUDA A CONECTARNOS CON EL SERVIDOR DEL BACKEND
 const URI = "http://localhost:4000/api/tienda/todasVenta";
 
 const CompMostrarVentas = () => {
+  const router = useRouter();
   const [ventas, setVentas] = useState([]);
 
   useEffect(() => {
@@ -29,6 +28,7 @@ const CompMostrarVentas = () => {
     getVentas();
   };
 
+  console.log(ventas);
   //VISTA DE INTERFAZ DE USUARIO
   return (
     <div className="container">
@@ -72,7 +72,14 @@ const CompMostrarVentas = () => {
                   <td>
                     {/*Link to URL Definida para hacer la peticion en el back*/}
                     <Link
-                      href={`/editarVentas/${venta.idVenta}`}
+                      href={{
+                        pathname: `editarVentas/${venta.idVenta}`,
+                        query: {
+                          idUsuario: venta.idUsuario,
+                          cantidad: venta.cantidad,
+                          categoria: venta.categoria,
+                        },
+                      }}
                       className="btn btn-primary"
                     >
                       <Icon
@@ -81,6 +88,19 @@ const CompMostrarVentas = () => {
                         height="35"
                       />
                     </Link>
+                    {/* <button
+                      name="edit"
+                      onClick={() =>
+                        router.push({
+                          pathname: `editarVentas/${venta.idVenta}`,
+                          query: {
+                            idUsuario: venta.idUsuario,
+                          },
+                        })
+                      }
+                    >
+                      editar
+                    </button> */}
                     <button
                       onClick={() => deleteVentas(venta.idVenta)}
                       className="btn btn-danger"

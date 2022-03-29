@@ -20,6 +20,9 @@ import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css";
 import "../components/carousel/CarouselDemo.css";
 
+//importacion de panelMenu
+import "../components/PanelMenu/panelMenu.css";
+
 function MyApp({ Component, pageProps }) {
   return (
     <>

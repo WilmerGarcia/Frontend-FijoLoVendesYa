@@ -1,6 +1,6 @@
-import Button from "../components/button";
-import NavAndFooter from "../layouts/NavAndFooter";
-import ImageSlider from "../components/Slider/Slider";
+import Button from "../../components/button/index";
+import NavAndFooter from "../../layouts/NavAndFooter";
+import ImageSlider from "../../components/Slider/Slider";
 import Slider from "react-slick";
 import styled from "@emotion/styled";
 

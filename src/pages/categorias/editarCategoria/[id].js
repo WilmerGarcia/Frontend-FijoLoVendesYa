@@ -30,14 +30,14 @@ const CompActualizarCategoria = () => {
     await axios.put(URI + nombre, {
       descripcion: descripcion,
     });
-    router.push("/category");
+    router.push("/categorias");
   };
 
   //VISTA PARA EL USUARIO
   return (
     <div>
       <h1>EDITAR CATEGORIA</h1>
-      <Link href="/category" className="btn btn-prim mt-2 mb-2">
+      <Link href="/categorias" className="btn btn-prim mt-2 mb-2">
         <i className="fa-solid fa-arrow-rotate-left"></i>
       </Link>
       <form onSubmit={modifCateg}>

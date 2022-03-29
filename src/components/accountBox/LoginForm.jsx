@@ -15,6 +15,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 //Validacion de campos vacios
 const validationSchema = yup.object({
@@ -29,16 +30,20 @@ export function LoginForm(props) {
   const { switchRecoverPassword } = useContext(AccountContext);
   const [setSuccess] = useState(null);
   const [setError] = useState(null);
-
+  const router = useRouter();
   //controlador del formulario se activa cuando se envia el formulario
   const onSubmit = async (values) => {
     const { correo, pass } = values;
     console.log(values);
     const response = await axios
-      .post("http://localhost:4000/api/tienda/login", {
-        correo: correo,
-        pass: pass,
-      }, {withCredentials: true})
+      .post(
+        "http://localhost:4000/api/tienda/login",
+        {
+          correo: correo,
+          pass: pass,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
         swal({
           title: "LOGIN EXITOSO",
@@ -48,6 +53,7 @@ export function LoginForm(props) {
           timer: "1500",
         });
         formik.resetForm();
+        router.push("/HomeUser");
       })
       .catch((err) => {
         //  console.log(response);
@@ -75,6 +81,9 @@ export function LoginForm(props) {
     validateOnBlur: true,
     onSubmit,
     validationSchema: validationSchema,
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   return (
@@ -124,9 +133,7 @@ export function LoginForm(props) {
         </MutedLink>
         <Marginer direction="vertical" margin="1.6em" />
         {/*Si los campos estan llenos se inicia seccion con el boton de lo contrario el boton esta deshabilitado */}
-        <SubmitButton type="submit" disabled={!formik.isValid}>
-          Iniciar sesión
-        </SubmitButton>
+        <SubmitButton type="submit">Iniciar sesión</SubmitButton>
       </FormContainer>
       <Marginer direction="vertical" margin={10} />
       <Marginer direction="vertical" margin="1em" />

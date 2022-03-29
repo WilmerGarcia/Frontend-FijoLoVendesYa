@@ -39,7 +39,7 @@
 }
 
 .banner {
-  padding: 60px 50px 160px;
+  padding: 60px 700px 160px;
   margin-bottom: 30px;
   background: linear-gradient(
     357deg,
@@ -47,4 +47,7 @@
     rgba(10, 89, 218, 1) 100%
   );
   border-radius: 10px;
+  margin-bottom: 60px;
+  margin-right: 0;
+  margin-left: -50px;
 }

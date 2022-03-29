@@ -93,7 +93,6 @@ const CarouselDemo = () => {
       <div className="titulo">
         <h1>Recomendaciones para ti</h1>
       </div>
-
       <div className="carousel-demo">
         <Carousel
           value={products}
@@ -103,7 +102,6 @@ const CarouselDemo = () => {
           itemTemplate={productTemplate}
         />
       </div>
-
       <div className="titulo">
         <h1>Populares</h1>
       </div>
@@ -117,15 +115,9 @@ const CarouselDemo = () => {
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="titulo">
-        <h1>Muy pronto</h1>
-      </div>
-
-      <div className="banner">
-        <h1></h1>
-        <p></p>
+        <div className="titulo">
+          <h1>Muy pronto</h1>
+        </div>
       </div>
     </>
   );
