@@ -20,7 +20,9 @@ const CompMostrarVentas = () => {
   const getVentas = async () => {
     const response = await axios.get(URI, { withCredentials: true });
     //then((response) => { console.log(response) })
-    setVentas(response.data);
+    if (response.data) {
+      setVentas(response.data);
+    }
   };
 
   //PROCEDIMIENTO PARA ELIMINAR
@@ -31,11 +33,10 @@ const CompMostrarVentas = () => {
         withCredentials: true,
       }
     );
-
-    getVentas();
+    await getVentas();
   };
 
-  console.log(ventas);
+  //console.log(ventas);
   //VISTA DE INTERFAZ DE USUARIO
   return (
     <div className="container">
@@ -67,7 +68,7 @@ const CompMostrarVentas = () => {
                 <th>Categoria</th>
                 <th>Precio</th>
                 <th>Fecha</th>
-                <h>ACCIONES</h>
+                <th>ACCIONES</th>
               </tr>
             </thead>
             <tbody>

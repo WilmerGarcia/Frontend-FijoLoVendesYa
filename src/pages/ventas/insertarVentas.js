@@ -18,6 +18,7 @@ const CompRegistrarVentas = () => {
     );
     const data = await response.json();
     setCategorias(data);
+    setCategoria(data[0].nombre);
   };
   const [idUsuario, setIdUsuario] = useState("");
   const [estado, setEstado] = useState("");
@@ -25,6 +26,7 @@ const CompRegistrarVentas = () => {
   const [producto, setProducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [categorias, setCategorias] = useState([]);
+  const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
   const [fechaPublicacion, setFechaPublicacion] = useState("");
 
@@ -140,9 +142,9 @@ const CompRegistrarVentas = () => {
           <select
             className="form-control"
             multiple={false}
-            value={categorias}
+            value={categoria}
             onChange={(e) => {
-              setCategorias(e.target.value);
+              setCategoria(e.target.value);
             }}
           >
             {categorias.map((elemento) => (

@@ -6,11 +6,23 @@ import { useRouter } from "next/router";
 const URI = "http://localhost:4000/api/tienda/editarVenta/";
 
 const CompEditarVentas = () => {
+  useEffect(() => {
+    listacategorias();
+  }, []);
+
+  const listacategorias = async (e) => {
+    const response = await fetch(
+      "http://localhost:4000/api/tienda/todasCategorias/"
+    );
+    const data = await response.json();
+    setCategorias(data);
+  };
   const [idUsuario, setIdUsuario] = useState("");
   const [estado, setEstado] = useState("");
   const [cantidad, setCantidad] = useState(0);
   const [producto, setProducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categorias, setCategorias] = useState([]);
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState(0);
   const [fechaPublicacion, setFechaPublicacion] = useState("");
@@ -154,12 +166,20 @@ const CompEditarVentas = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Categoria</label>
-          <input
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            type="text"
+          <select
             className="form-control"
-          ></input>
+            multiple={false}
+            value={categoria}
+            onChange={(e) => {
+              setCategoria(e.target.value);
+            }}
+          >
+            {categorias.map((elemento) => (
+              <option key={elemento.nombre} value={elemento.nombre}>
+                {elemento.nombre}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-3">
           <label className="form-label">Precio</label>
