@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import { Button } from "primereact/button";
 
 //NOS AYUDA A CONECTARNOS CON EL SERVIDOR DEL BACKEND
-const URI = "http://localhost:4000/api/tienda/todasVenta";
+const URI = "http://localhost:4000/api/tienda/listarVenta";
 
 const CompMostrarVentas = () => {
   const router = useRouter();
@@ -24,7 +25,13 @@ const CompMostrarVentas = () => {
 
   //PROCEDIMIENTO PARA ELIMINAR
   const deleteVentas = async (idVenta) => {
-    await axios.delete(`${URI}${idVenta}`);
+    await axios.delete(
+      `http://localhost:4000/api/tienda/eliminarVenta/${idVenta}`,
+      {
+        withCredentials: true,
+      }
+    );
+
     getVentas();
   };
 
@@ -34,11 +41,18 @@ const CompMostrarVentas = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <Link href="/crearVenta" className="btn btn-prim mt-2 mb-2">
-            <i class="fa-solid fa-circle-plus"></i>
+          <Link
+            href="/ventas/insertarVentas"
+            className="btn btn-prim mt-2 mb-2"
+          >
+            <Button
+              label="Agregar Venta"
+              icon="pi pi-plus"
+              className="p-button-success mr-2"
+            />
           </Link>
           <Link href="/" className="btn btn-prim mt-2 mb-2">
-            <i className="fa-solid fa-arrow-rotate-left"></i>
+            <Icon icon="akar-icons:edit" color="#f5b921" height="35" />
           </Link>
 
           <table className="table table-dark table-sm">
@@ -73,7 +87,7 @@ const CompMostrarVentas = () => {
                     {/*Link to URL Definida para hacer la peticion en el back*/}
                     <Link
                       href={{
-                        pathname: `editarVentas/${venta.idVenta}`,
+                        pathname: `/ventas/editarVentas/${venta.idVenta}`,
                         query: {
                           idUsuario: venta.idUsuario,
                           cantidad: venta.cantidad,
@@ -101,16 +115,13 @@ const CompMostrarVentas = () => {
                     >
                       editar
                     </button> */}
-                    <button
+
+                    <Button
+                      label="Borrar"
+                      icon="pi pi-trash"
+                      className="p-button-danger"
                       onClick={() => deleteVentas(venta.idVenta)}
-                      className="btn btn-danger"
-                    >
-                      <Icon
-                        icon="fluent:delete-24-filled"
-                        color="#ffd233"
-                        height="30"
-                      />
-                    </button>
+                    />
                   </td>
                 </tr>
               ))}

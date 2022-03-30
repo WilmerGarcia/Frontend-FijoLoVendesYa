@@ -53,7 +53,12 @@ export function LoginForm(props) {
           timer: "1500",
         });
         formik.resetForm();
-        router.push("/HomeUser");
+
+        if (response?.data?.admin === true) {
+          router.push("/admin/categorias");
+        } else {
+          router.push("/HomeUser");
+        }
       })
       .catch((err) => {
         //  console.log(response);

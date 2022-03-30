@@ -18,8 +18,13 @@ const CompMostrarCategorias = () => {
   };
 
   //PROCEDIMIENTO PARA ELIMINAR
-  const deleteCategorias = async (idCategoria) => {
-    await axios.delete(`${URI}${idCategoria}`);
+  const deleteCategorias = async (nombre) => {
+    await axios.delete(
+      `http://localhost:4000/api/tienda/eliminarCategoria/${nombre}`,
+      {
+        withCredentials: true,
+      }
+    );
     getCategorias();
   };
 
@@ -54,7 +59,7 @@ const CompMostrarCategorias = () => {
                   <td>
                     {/*Link to URL Definida para hacer la peticion en el back*/}
                     <Link
-                      href={`/categorias/editarCategoria/id${Categorias.nombre}`}
+                      href={`/categorias/editarCategoria/${Categorias.nombre}`}
                       className="btn btn-primary"
                     >
                       <Icon
@@ -63,8 +68,9 @@ const CompMostrarCategorias = () => {
                         height="35"
                       />
                     </Link>
+
                     <button
-                      onClick={() => deleteCategorias(Categorias.idCategoria)}
+                      onClick={() => deleteCategorias(Categorias.nombre)}
                       className="btn btn-danger"
                     >
                       <Icon icon="ic:round-delete" color="#f5b921" height="3" />

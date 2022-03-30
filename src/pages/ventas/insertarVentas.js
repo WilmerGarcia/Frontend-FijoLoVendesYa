@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
 //import { useFormik } from "formik";
@@ -8,12 +8,23 @@ import { useRouter } from "next/router";
 const URI = "http://localhost:4000/api/tienda/crearVenta/";
 
 const CompRegistrarVentas = () => {
+  useEffect(() => {
+    listacategorias();
+  }, []);
+
+  const listacategorias = async (e) => {
+    const response = await fetch(
+      "http://localhost:4000/api/tienda/todasCategorias/"
+    );
+    const data = await response.json();
+    setCategorias(data);
+  };
   const [idUsuario, setIdUsuario] = useState("");
   const [estado, setEstado] = useState("");
   const [cantidad, setCantidad] = useState("");
   const [producto, setProducto] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [categorias, setCategorias] = useState([]);
   const [precio, setPrecio] = useState("");
   const [fechaPublicacion, setFechaPublicacion] = useState("");
 
@@ -126,12 +137,20 @@ const CompRegistrarVentas = () => {
         </div>
         <div className="mb-3">
           <label className="form-label">Categoria</label>
-          <input
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            type="text"
+          <select
             className="form-control"
-          ></input>
+            multiple={false}
+            value={categorias}
+            onChange={(e) => {
+              setCategorias(e.target.value);
+            }}
+          >
+            {categorias.map((elemento) => (
+              <option key={elemento.nombre} value={elemento.nombre}>
+                {elemento.nombre}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-3">
           <label className="form-label">Precio</label>

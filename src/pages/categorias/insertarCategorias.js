@@ -26,10 +26,14 @@ const CompRegistrarCategorias = () => {
   const router = useRouter();
   const guardarCateg = async (e) => {
     e.preventDefault();
-    await axios.post(URI, {
-      nombre: nombre,
-      descripcion: descripcion,
-    });
+    await axios.post(
+      URI,
+      {
+        nombre: nombre,
+        descripcion: descripcion,
+      },
+      { withCredentials: true }
+    );
     router.push("/categorias");
   };
 
