@@ -1,7 +1,19 @@
-import { useFormik } from "formik";
 import React, { useContext, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
-  BoldLink, //
+  BoldLink,
   BoxContainer,
   FieldContainer,
   FieldError,
@@ -10,18 +22,14 @@ import {
   MutedLink,
   SubmitButton,
 } from "./common";
-import { Marginer } from "../marginer";
-import { AccountContext } from "./accountContext";
+import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
-/*La contraseña debe tener al entre 8 y 16 caracteres,
-al menos un dígito, al menos una minúscula y al menos una mayúscula.*/
 const PASSWORD_REGEX = /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/;
 const phoneRegExp = /^\d{7,14}$/;
-///^\+[5][0][4]\s(?:9|8|3)[1-9]{7}$/; // Expresion regular para numeros hondureños
-//^\d{7,14}$/; // 7 a 14 numeros.
 
 //Yup es la librería para validar los campos de Formik
 const validationSchema = yup.object({
@@ -69,7 +77,6 @@ const validationSchema = yup.object({
 });
 
 export function SignupForm(props) {
-  const { switchToSignin } = props;
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
@@ -80,7 +87,7 @@ export function SignupForm(props) {
     swal({
       title: "Terminos y Condiciones",
       text: `Para completar el registro debes aceptar los términos de uso y el procesamiento, tratamiento y transferencia de datos personales.
-      Estoy de acuerdo recibir notificaciones y otra información de parte de la aplicación.`,
+        Estoy de acuerdo recibir notificaciones y otra información de parte de la aplicación.`,
       icon: "info",
       buttons: true,
       dangerMode: true,
@@ -149,145 +156,180 @@ export function SignupForm(props) {
     validationSchema: validationSchema,
   });
 
-  //sconsole.log("Error: ", formik.errors);
+  const theme = createTheme();
 
   return (
-    <BoxContainer>
-      <FormContainer onSubmit={formik.handleSubmit}>
-        <FieldContainer>
-          {/* onChange para sincronizar el valor del campo */}
-          {/* onBlur para sincronizar la validación del campo */}
-          <Input
-            icon="user"
-            type="text"
-            name="nombre"
-            id="nombre"
-            placeholder="Nombre"
-            value={formik.values.nombre}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.nombre && formik.errors.nombre
-              ? formik.errors.nombre
-              : ""}
-          </FieldError>
-        </FieldContainer>
+    <ThemeProvider theme={theme} onSubmit={formik.handleSubmit}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Iniciar Sesión
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={formik.handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type="text"
+              name="nombre"
+              id="nombre"
+              label="Nombre"
+              value={formik.values.nombre}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.pass && formik.errors.pass
+                ? formik.errors.pass
+                : ""}
+            </FieldError>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type="text"
+              name="apellido"
+              id="apellido"
+              label="Apellido"
+              value={formik.values.apellido}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.apellido && formik.errors.apellido
+                ? formik.errors.apellido
+                : ""}
+            </FieldError>
+            <TextField
+              icon="user"
+              margin="normal"
+              required
+              fullWidth
+              id="correo"
+              label="Correo Electronico"
+              name="correo"
+              autoComplete="email"
+              autoFocus
+              value={formik.values.correo}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.correo && formik.errors.correo
+                ? formik.errors.correo
+                : ""}
+            </FieldError>
 
-        <FieldContainer>
-          <Input
-            type="text"
-            name="apellido"
-            id="apellido"
-            placeholder="Apellido"
-            value={formik.values.apellido}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.apellido && formik.errors.apellido
-              ? formik.errors.apellido
-              : ""}
-          </FieldError>
-        </FieldContainer>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="telefono"
+              label="Telefóno, ej: 88888888"
+              name="telefono"
+              autoFocus
+              value={formik.values.telefono}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.telefono && formik.errors.telefono
+                ? formik.errors.telefono
+                : ""}
+            </FieldError>
 
-        <FieldContainer>
-          <Input
-            type="email"
-            name="correo"
-            id="correo"
-            placeholder="Correo"
-            value={formik.values.correo}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.correo && formik.errors.correo
-              ? formik.errors.correo
-              : ""}
-          </FieldError>
-        </FieldContainer>
-
-        <FieldContainer>
-          <Input
-            type="text"
-            name="telefono"
-            id="telefono"
-            placeholder="Telefóno, ej: 88888888"
-            value={formik.values.telefono}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.telefono && formik.errors.telefono
-              ? formik.errors.telefono
-              : ""}
-          </FieldError>
-        </FieldContainer>
-
-        <FieldContainer>
-          <Input
-            type="texto"
-            name="direccion"
-            id="direccion"
-            placeholder="Dirección"
-            value={formik.values.direccion}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.direccion && formik.errors.direccion
-              ? formik.errors.direccion
-              : ""}
-          </FieldError>
-        </FieldContainer>
-
-        <FieldContainer>
-          <Input
-            type="password"
-            name="pass"
-            id="pass"
-            placeholder="Contraseña"
-            value={formik.values.pass}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.pass && formik.errors.pass
-              ? formik.errors.pass
-              : ""}
-          </FieldError>
-        </FieldContainer>
-
-        <FieldContainer>
-          <Input
-            type="password"
-            name="passConfirmation"
-            placeholder="Confirmar Contraseña"
-            value={formik.values.passConfirmation}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-          />
-          <FieldError>
-            {formik.touched.passConfirmation && formik.errors.passConfirmation
-              ? formik.errors.passConfirmation
-              : ""}
-          </FieldError>
-        </FieldContainer>
-        <Marginer direction="vertical" margin={25} />
-        <SubmitButton type="submit">Registrarse</SubmitButton>
-        <Marginer direction="vertical" margin="1em" />
-      </FormContainer>
-
-      <MutedLink>
-        ¿Ya tienes una cuenta?
-        <BoldLink onClick={switchToSignin}>
-          {" "}
-          {/*Al dar click redirecciona al login */}
-          Iniciar sesión
-        </BoldLink>
-      </MutedLink>
-    </BoxContainer>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="direccion"
+              label="Dirección"
+              name="direccion"
+              autoFocus
+              value={formik.values.direccion}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.direccion && formik.errors.direccion
+                ? formik.errors.direccion
+                : ""}
+            </FieldError>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type="password"
+              name="pass"
+              id="pass"
+              label="Contraseña"
+              autoComplete="current-password"
+              value={formik.values.pass}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.pass && formik.errors.pass
+                ? formik.errors.pass
+                : ""}
+            </FieldError>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              type="password"
+              name="passConfirmation"
+              label="Contraseña"
+              autoComplete="Confirmar Contraseña"
+              value={formik.values.passConfirmation}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <FieldError>
+              {formik.touched.passConfirmation && formik.errors.passConfirmation
+                ? formik.errors.passConfirmation
+                : ""}
+            </FieldError>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Registrarse
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="/login" variant="body2">
+                  ¿Ya tienes una cuenta?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/login" variant="body2">
+                  {"Iniciar sesión"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

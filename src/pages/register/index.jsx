@@ -1,5 +1,5 @@
 import NavAndFooter from "../../layouts/NavAndFooter";
-import SignupForm from "../../components/accountBox/SignupForm2";
+import SignupForm from "../../components/accountBox/SignupForm";
 
 const index = () => {
   return <SignupForm />;

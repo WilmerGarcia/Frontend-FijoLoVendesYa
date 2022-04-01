@@ -180,26 +180,15 @@ export function RecoverPassword(props) {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            */}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Iniciar sesión
-            </Button> */}
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"¿No tienes una cuenta?"}
-                </Link>
-              </Grid>
-            </Grid>
+              Enviar
+            </Button>
           </Box>
         </Box>
       </Container>

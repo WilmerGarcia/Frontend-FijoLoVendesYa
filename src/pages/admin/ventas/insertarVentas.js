@@ -74,7 +74,34 @@ const CompRegistrarVentas = () => {
       <h1>CREAR VENTA</h1>
 
       <form onSubmit={store} id="form">
-        <div className="mb-3">
+        <Dropdown
+          value={this.state.selectedItem2}
+          options={this.state.lazyItems}
+          onChange={this.onLazyItemChange}
+          virtualScrollerOptions={{
+            lazy: true,
+            onLazyLoad: this.onLazyLoad,
+            itemSize: 38,
+            showLoader: true,
+            loading: this.state.lazyLoading,
+            delay: 250,
+            loadingTemplate: (options) => {
+              return (
+                <div
+                  className="flex align-items-center p-2"
+                  style={{ height: "38px" }}
+                >
+                  <Skeleton
+                    width={options.even ? "60%" : "50%"}
+                    height="1rem"
+                  />
+                </div>
+              );
+            },
+          }}
+          placeholder="Select Item"
+        />
+        {/* <div className="mb-3">
           <label className="form-label">Estado</label>
           <input
             name="estado"
@@ -98,7 +125,7 @@ const CompRegistrarVentas = () => {
           <label class="form-check-label" for="exampleRadios1">
             No Disponible
           </label>
-        </div>
+        </div> */}
         <div className="mb-3">
           <label className="form-label">Producto</label>
           <input

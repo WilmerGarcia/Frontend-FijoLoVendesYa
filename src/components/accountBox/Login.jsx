@@ -47,10 +47,6 @@ const theme = createTheme();
 //   };
 
 export function Singinup(props) {
-  //Comunica los componentes para luego  pasar de login al registro
-  //const { switchToSignup } = props;
-  //const { switchRecoverPassword } = useContext(AccountContext);
-
   const [setSuccess] = useState(null);
   const [setError] = useState(null);
   const router = useRouter();
@@ -84,8 +80,6 @@ export function Singinup(props) {
         }
       })
       .catch((err) => {
-        //  console.log(response);
-        //if (err && err.response) setError(err.response.data.message);
         console.log(err);
         swal({
           title: "HA OCURRIDO UN ERROR",
