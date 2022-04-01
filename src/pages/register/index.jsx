@@ -1,15 +1,8 @@
 import NavAndFooter from "../../layouts/NavAndFooter";
-import Form from "../../components/accountBox";
-
+import SignupForm from "../../components/accountBox/SignupForm2";
 
 const index = () => {
-  return (
-    <NavAndFooter>
-      <Form initialState="registrarse" />
-    </NavAndFooter>
-
- 
-  );
+  return <SignupForm />;
 };
 
 export default index;

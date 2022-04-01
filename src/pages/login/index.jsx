@@ -1,12 +1,8 @@
 import NavAndFooter from "../../layouts/NavAndFooter";
-import Form from "../../components/accountBox";
+import SignIn from "../../components/accountBox/Login";
 
 const index = () => {
-  return (
-    <NavAndFooter>
-      <Form />
-    </NavAndFooter>
-  );
+  return <SignIn />;
 };
 
 export default index;

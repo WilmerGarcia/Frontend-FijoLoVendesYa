@@ -34,7 +34,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="li">
-              <Link href="login">
+              <Link href="/login">
                 <a className="link">Iniciar sesión</a>
               </Link>
             </li>

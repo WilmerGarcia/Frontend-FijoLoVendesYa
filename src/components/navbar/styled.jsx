@@ -23,8 +23,6 @@ export const StyledNavbarContainer = styled.nav`
     height: 70%;
   }
 
-
-
   .content {
     display: flex;
     flex-direction: row;
@@ -50,32 +48,25 @@ export const StyledNavbarContainer = styled.nav`
       align-items: center;
       margin: 0px 10px;
 
-      .link{
+      .link {
         color: #333333;
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
         font-family: "Montserrat", sans-serif;
       }
-
     }
   }
 
-.item-input{
-  width: 40vw;
-}
-
-.ui{
-    background-color: #d8e5ff;
-    border-radius:0px;
+  .item-input {
+    width: 40vw;
   }
 
-  
-
-
-
+  .ui {
+    background-color: #d8e5ff;
+    border-radius: 0px;
+  }
 `;
-
 
 export const Input = styled.input`
   width: 100%;
@@ -100,6 +91,4 @@ export const Input = styled.input`
     outline: none;
     border-bottom: 2px solid rgb(241, 196, 15);
   }
-
 `;
-

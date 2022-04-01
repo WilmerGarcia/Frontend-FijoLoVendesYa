@@ -30,11 +30,11 @@ const CompMostrarCategorias = () => {
 
   //VISTA DE USUARIOS TABLA CON LAS CATEGORIAS
   return (
-    <div className="container">
+    <>
       <div className="row">
         <div className="col">
           <Link
-            href="/categorias/insertarCategorias"
+            href="/admin/categorias/insertarCategorias"
             className="btn btn-prim mt-2 mb-2"
           >
             <Icon icon="bi:plus-square-fill" color="#0c97aa" height="30" />
@@ -59,7 +59,7 @@ const CompMostrarCategorias = () => {
                   <td>
                     {/*Link to URL Definida para hacer la peticion en el back*/}
                     <Link
-                      href={`/categorias/editarCategoria/${Categorias.nombre}`}
+                      href={`/admin/categorias/editarCategoria/${Categorias.nombre}`}
                       className="btn btn-primary"
                     >
                       <Icon
@@ -82,7 +82,7 @@ const CompMostrarCategorias = () => {
           </table>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

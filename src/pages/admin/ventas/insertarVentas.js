@@ -2,9 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
-//import { useFormik } from "formik";
-//import * as yup from "yup";
-//IMPORTAR
+import SideBar from "../../../layouts/SideBar";
 const URI = "http://localhost:4000/api/tienda/crearVenta/";
 
 const CompRegistrarVentas = () => {
@@ -49,42 +47,14 @@ const CompRegistrarVentas = () => {
       },
       { withCredentials: true }
     );
-    router.push("/ventas/mostrarVentas");
+    router.push("/admin/ventas");
   };
 
   return (
-    <div>
+    <SideBar>
       <h1>CREAR VENTA</h1>
 
       <form onSubmit={store}>
-        {/* <div className="mb-3">
-                    <label className="form-label">ID</label>
-                    <input value={idVenta}
-                        onChange={(e) => setIdVenta(e.target.value)}
-                        type="number"
-                        className="form-control"
-                    >
-                    </input>
-                </div> */}
-        {/* <td>{venta.idVenta}</td>
-                                    <td>{venta.idUsuario}</td>
-                                    <td>{venta.estado}</td>
-                                    <td>{venta.producto}</td>
-                                    <td>{venta.cantidad}</td>
-                                    <td>{venta.descripcion}</td>
-                                    <td>{venta.categoria}</td>
-                                    <td>{venta.precio}</td>
-                                    <td>{venta.fechaPublicacion}</td> */}
-        {/* <div className="mb-3">
-          <label className="form-label">idUsuario</label>
-          <input
-            value={idUsuario}
-            onChange={(e) => setIdUsuario(e.target.value)}
-            type="number"
-            className="form-control"
-          ></input>
-        </div> */}
-
         <div className="mb-3">
           <label className="form-label">Estado</label>
           <input
@@ -176,7 +146,7 @@ const CompRegistrarVentas = () => {
           Crear
         </button>
       </form>
-    </div>
+    </SideBar>
   );
 };
 

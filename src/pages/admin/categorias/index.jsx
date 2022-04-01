@@ -1,15 +1,11 @@
-import NavAndFooter from "../../../layouts/NavAndFooter";
-import Categoria from "../../categorias/mostrarCategorias";
-import LeftNavbar from "../../../components/admin/leftNavbar";
+import SideBar from "../../../layouts/SideBar";
+import Categoria from "./mostrarCategorias";
 
 const categorias = () => {
   return (
-    <>
-      <LeftNavbar />
-      <NavAndFooter>
-        <Categoria />
-      </NavAndFooter>
-    </>
+    <SideBar>
+      <Categoria />
+    </SideBar>
   );
 };
 

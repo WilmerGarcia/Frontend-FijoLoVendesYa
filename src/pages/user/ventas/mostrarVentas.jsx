@@ -43,7 +43,7 @@ const CompMostrarVentas = () => {
       <div className="row">
         <div className="col">
           <Link
-            href="/ventas/insertarVentas"
+            href="/user/ventas/insertarVentas"
             className="btn btn-prim mt-2 mb-2"
           >
             <Button
@@ -88,7 +88,7 @@ const CompMostrarVentas = () => {
                     {/*Link to URL Definida para hacer la peticion en el back*/}
                     <Link
                       href={{
-                        pathname: `/ventas/editarVentas/${venta.idVenta}`,
+                        pathname: `/user/ventas/editarVentas/${venta.idVenta}`,
                         query: {
                           idUsuario: venta.idUsuario,
                           cantidad: venta.cantidad,

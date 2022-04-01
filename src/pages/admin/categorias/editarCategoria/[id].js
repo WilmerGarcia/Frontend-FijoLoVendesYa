@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SideBar from "../../../../layouts/SideBar";
 //NOS CONECTAMOS CON EL SERVIDOR DEL BACKEND
 const URI = "http://localhost:4000/api/tienda/editarCategoria/";
 
@@ -47,7 +48,7 @@ const CompActualizarCategoria = () => {
 
   //VISTA PARA EL USUARIO
   return (
-    <div>
+    <SideBar>
       <h1>EDITAR CATEGORIA</h1>
       <Link href="/categorias" className="btn btn-prim mt-2 mb-2">
         <i className="fa-solid fa-arrow-rotate-left"></i>
@@ -79,7 +80,7 @@ const CompActualizarCategoria = () => {
           ACTUALIZAR
         </button>
       </form>
-    </div>
+    </SideBar>
   );
 };
 

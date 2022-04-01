@@ -1,14 +1,12 @@
-import NavAndFooter from "../../../layouts/NavAndFooter";
-import LeftNavbar from "../../../components/admin/leftNavbar";
-import Ventas from "../../../components/ventas/mostrarVentas";
+import SideBar from "../../../layouts/SideBar";
+import Ventas from "./mostrarVentas";
 
 const index = () => {
   return (
     <>
-      <LeftNavbar />
-      <NavAndFooter>
+      <SideBar>
         <Ventas />
-      </NavAndFooter>
+      </SideBar>
     </>
   );
 };
