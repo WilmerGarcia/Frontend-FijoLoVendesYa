@@ -27,26 +27,45 @@ const CompRegistrarVentas = () => {
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
   const [fechaPublicacion, setFechaPublicacion] = useState("");
+  const [fotos, setFotos] = useState([]);
 
   const router = useRouter();
 
   //Procedimiento guardar
   const store = async (e) => {
     e.preventDefault();
-    await axios.post(
-      URI,
-      {
-        //idVenta: idVenta,
-        //idUsuario: idUsuario,
-        estado: estado,
-        producto: producto,
-        cantidad: cantidad,
-        descripcion: descripcion,
-        categoria: categoria,
-        precio: precio,
-      },
-      { withCredentials: true }
-    );
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+
+    await axios
+      .post(
+        URI,
+        // {
+        //   //idVenta: idVenta,
+        //   //idUsuario: idUsuario,
+        //   estado: estado,
+        //   producto: producto,
+        //   cantidad: cantidad,
+        //   descripcion: descripcion,
+        //   categoria: categoria,
+        //   precio: precio,
+        //   foto: fotos,
+        // },
+        formData,
+
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     router.push("/admin/ventas");
   };
 
@@ -54,7 +73,7 @@ const CompRegistrarVentas = () => {
     <SideBar>
       <h1>CREAR VENTA</h1>
 
-      <form onSubmit={store}>
+      <form onSubmit={store} id="form">
         <div className="mb-3">
           <label className="form-label">Estado</label>
           <input
@@ -83,6 +102,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Producto</label>
           <input
+            name="producto"
             value={producto}
             onChange={(e) => setProducto(e.target.value)}
             type="text"
@@ -92,6 +112,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Cantidad</label>
           <input
+            name="cantidad"
             value={cantidad}
             onChange={(e) => setCantidad(e.target.value)}
             type="number"
@@ -101,6 +122,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Descripcion</label>
           <input
+            name="descripcion"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             type="text"
@@ -110,6 +132,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Categoria</label>
           <select
+            name="categoria"
             className="form-control"
             multiple={false}
             value={categoria}
@@ -127,6 +150,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Precio</label>
           <input
+            name="precio"
             value={precio}
             onChange={(e) => setPrecio(e.target.value)}
             type="number"
@@ -136,9 +160,21 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Fecha</label>
           <input
+            name="fechaPublicacion"
             value={fechaPublicacion}
             onChange={(e) => setFechaPublicacion(e.target.value)}
             type="date"
+            className="form-control"
+          ></input>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Foto</label>
+          <input
+            name="foto"
+            value={fotos}
+            onChange={(e) => setFotos(e.target.value)}
+            type="file"
+            multiple
             className="form-control"
           ></input>
         </div>
