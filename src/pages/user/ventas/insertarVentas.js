@@ -2,9 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
-//import { useFormik } from "formik";
-//import * as yup from "yup";
-//IMPORTAR
+import SideBar from "../../../layouts/SideBar";
 const URI = "http://localhost:4000/api/tienda/crearVenta/";
 
 const CompRegistrarVentas = () => {
@@ -29,90 +27,77 @@ const CompRegistrarVentas = () => {
   const [categoria, setCategoria] = useState("");
   const [precio, setPrecio] = useState("");
   const [fechaPublicacion, setFechaPublicacion] = useState("");
+  const [fotos, setFotos] = useState([]);
 
   const router = useRouter();
+
+  const devolverEstado = (event) => {
+    console.log("cambioEstado");
+    console.log(event.target.value);
+    return setEstado(event.target.value);
+  };
 
   //Procedimiento guardar
   const store = async (e) => {
     e.preventDefault();
-    await axios.post(
-      URI,
-      {
-        //idVenta: idVenta,
-        //idUsuario: idUsuario,
-        estado: estado,
-        producto: producto,
-        cantidad: cantidad,
-        descripcion: descripcion,
-        categoria: categoria,
-        precio: precio,
-      },
-      { withCredentials: true }
-    );
-    router.push("/user/ventas/mostrarVentas");
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
+
+    await axios
+      .post(
+        URI,
+        // {
+        //   //idVenta: idVenta,
+        //   //idUsuario: idUsuario,
+        //   estado: estado,
+        //   producto: producto,
+        //   cantidad: cantidad,
+        //   descripcion: descripcion,
+        //   categoria: categoria,
+        //   precio: precio,
+        //   foto: fotos,
+        // },
+        formData,
+
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    router.push("/admin/ventas");
   };
 
   return (
-    <div>
+    <SideBar>
       <h1>CREAR VENTA</h1>
 
-      <form onSubmit={store}>
-        {/* <div className="mb-3">
-                    <label className="form-label">ID</label>
-                    <input value={idVenta}
-                        onChange={(e) => setIdVenta(e.target.value)}
-                        type="number"
-                        className="form-control"
-                    >
-                    </input>
-                </div> */}
-        {/* <td>{venta.idVenta}</td>
-                                    <td>{venta.idUsuario}</td>
-                                    <td>{venta.estado}</td>
-                                    <td>{venta.producto}</td>
-                                    <td>{venta.cantidad}</td>
-                                    <td>{venta.descripcion}</td>
-                                    <td>{venta.categoria}</td>
-                                    <td>{venta.precio}</td>
-                                    <td>{venta.fechaPublicacion}</td> */}
-        {/* <div className="mb-3">
-          <label className="form-label">idUsuario</label>
-          <input
-            value={idUsuario}
-            onChange={(e) => setIdUsuario(e.target.value)}
-            type="number"
-            className="form-control"
-          ></input>
-        </div> */}
-
+      <form onSubmit={store} id="form">
         <div className="mb-3">
           <label className="form-label">Estado</label>
-          <input
+          <br></br>
+          <select
             name="estado"
-            value={estado}
+            className="form-select"
             onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label class="form-check-label" for="exampleRadios1">
-            Disponible
-          </label>
-          <input
-            name="estado"
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label class="form-check-label" for="exampleRadios1">
-            No Disponible
-          </label>
+          >
+            <option value="Disponible">Disponible</option>
+            <option value="No Disponible">No Disponible</option>
+          </select>
+          {estado}
         </div>
+
         <div className="mb-3">
           <label className="form-label">Producto</label>
           <input
+            name="producto"
             value={producto}
             onChange={(e) => setProducto(e.target.value)}
             type="text"
@@ -122,6 +107,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Cantidad</label>
           <input
+            name="cantidad"
             value={cantidad}
             onChange={(e) => setCantidad(e.target.value)}
             type="number"
@@ -131,6 +117,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Descripcion</label>
           <input
+            name="descripcion"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
             type="text"
@@ -140,6 +127,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Categoria</label>
           <select
+            name="categoria"
             className="form-control"
             multiple={false}
             value={categoria}
@@ -157,6 +145,7 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Precio</label>
           <input
+            name="precio"
             value={precio}
             onChange={(e) => setPrecio(e.target.value)}
             type="number"
@@ -166,9 +155,21 @@ const CompRegistrarVentas = () => {
         <div className="mb-3">
           <label className="form-label">Fecha</label>
           <input
+            name="fechaPublicacion"
             value={fechaPublicacion}
             onChange={(e) => setFechaPublicacion(e.target.value)}
             type="date"
+            className="form-control"
+          ></input>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Foto</label>
+          <input
+            name="foto"
+            value={fotos}
+            onChange={(e) => setFotos(e.target.value)}
+            type="file"
+            multiple
             className="form-control"
           ></input>
         </div>
@@ -176,7 +177,7 @@ const CompRegistrarVentas = () => {
           Crear
         </button>
       </form>
-    </div>
+    </SideBar>
   );
 };
 

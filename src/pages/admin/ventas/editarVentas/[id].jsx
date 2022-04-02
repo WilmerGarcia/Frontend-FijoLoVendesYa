@@ -102,51 +102,19 @@ const CompEditarVentas = () => {
             className="form-control"
           ></input>
         </div>
-        <div>
+        <div className="mb-3">
           <label className="form-label">Estado</label>
-          Disponible
-          <input
-            id="estado"
-            value="disponible"
+          <br></br>
+          <select
             name="estado"
-            type="radio"
-            checked={false}
-            onChange={this.handleChange}
-          />
-          No Disponible
-          <input
-            id="estado"
-            value="No disponible"
-            name="estado"
-            type="radio"
-            checked={false}
-            onChange={this.handleChange}
-          />
+            className="form-select"
+            onChange={(e) => setEstado(e.target.value)}
+          >
+            <option value="Disponible">Disponible</option>
+            <option value="No Disponible">No Disponible</option>
+          </select>
+          {estado}
         </div>
-
-        {/* <div className="mb-3">
-          <label className="form-label">Estado</label>
-          <div className="field-radiobutton">
-            <RadioButton
-              inputId="disponible"
-              name="estado"
-              value="Disponible"
-              onChange={(e) => this.setEstado({ estado: e.value })}
-              checked={this.state.estado === "Disponible"}
-            />
-            <label htmlFor="diponible">Disponible</label>
-          </div>
-          <div className="field-radiobutton">
-            <RadioButton
-              inputId="noDisponible"
-              name="estado"
-              value="No Disponible"
-              onChange={(e) => this.setEstado({ estado: e.value })}
-              checked={this.state.estado === "Disponible"}
-            />
-            <label htmlFor="noDisponible">No disponible</label>
-          </div>
-        </div> */}
         <div className="mb-3">
           <label className="form-label">Producto</label>
           <input

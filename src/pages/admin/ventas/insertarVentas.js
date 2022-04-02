@@ -31,6 +31,12 @@ const CompRegistrarVentas = () => {
 
   const router = useRouter();
 
+  const devolverEstado = (event) => {
+    console.log("cambioEstado");
+    console.log(event.target.value);
+    return setEstado(event.target.value);
+  };
+
   //Procedimiento guardar
   const store = async (e) => {
     e.preventDefault();
@@ -74,58 +80,20 @@ const CompRegistrarVentas = () => {
       <h1>CREAR VENTA</h1>
 
       <form onSubmit={store} id="form">
-        <Dropdown
-          value={this.state.selectedItem2}
-          options={this.state.lazyItems}
-          onChange={this.onLazyItemChange}
-          virtualScrollerOptions={{
-            lazy: true,
-            onLazyLoad: this.onLazyLoad,
-            itemSize: 38,
-            showLoader: true,
-            loading: this.state.lazyLoading,
-            delay: 250,
-            loadingTemplate: (options) => {
-              return (
-                <div
-                  className="flex align-items-center p-2"
-                  style={{ height: "38px" }}
-                >
-                  <Skeleton
-                    width={options.even ? "60%" : "50%"}
-                    height="1rem"
-                  />
-                </div>
-              );
-            },
-          }}
-          placeholder="Select Item"
-        />
-        {/* <div className="mb-3">
+        <div className="mb-3">
           <label className="form-label">Estado</label>
-          <input
+          <br></br>
+          <select
             name="estado"
-            value={estado}
+            className="form-select"
             onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label class="form-check-label" for="exampleRadios1">
-            Disponible
-          </label>
-          <input
-            name="estado"
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label class="form-check-label" for="exampleRadios1">
-            No Disponible
-          </label>
-        </div> */}
+          >
+            <option value="Disponible">Disponible</option>
+            <option value="No Disponible">No Disponible</option>
+          </select>
+          {estado}
+        </div>
+
         <div className="mb-3">
           <label className="form-label">Producto</label>
           <input

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 const URI = "http://localhost:4000/api/tienda/editarVenta/";
@@ -82,28 +81,10 @@ const CompEditarVentas = () => {
   };
 
   return (
-    <div>
+    <>
       <h1>EDITAR VENTA</h1>
 
       <form onSubmit={update}>
-        {/* <td>{venta.idVenta}</td>
-                                <td>{venta.idUsuario}</td>
-                                <td>{venta.estado}</td>
-                                <td>{venta.producto}</td>
-                                <td>{venta.cantidad}</td>
-                                <td>{venta.descripcion}</td>
-                                <td>{venta.categoria}</td>
-                                <td>{venta.precio}</td>
-                                <td>{venta.fechaPublicacion}</td> */}
-        {/* <div className="mb-3">
-                <label className="form-label">idUsuario</label>
-                <input value={idUsuario}
-                    onChange={(e) => setIdUsuario(e.target.value)}
-                    type="number"
-                    className="form-control"
-                >
-                </input>
-            </div> */}
         <div className="mb-3">
           <label className="form-label">idUsuario</label>
           <input
@@ -113,29 +94,18 @@ const CompEditarVentas = () => {
             className="form-control"
           ></input>
         </div>
-
         <div className="mb-3">
           <label className="form-label">Estado</label>
-          <input
-            value={estado}
+          <br></br>
+          <select
+            name="estado"
+            className="form-select"
             onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label className="form-check-label" for="exampleRadios1">
-            Disponible
-          </label>
-          <input
-            value={estado}
-            onChange={(e) => setEstado(e.target.value)}
-            type="radio"
-            className="form-control form-check-input"
-            checked
-          ></input>
-          <label class="form-check-label" for="exampleRadios1">
-            No Disponible
-          </label>
+          >
+            <option value="Disponible">Disponible</option>
+            <option value="No Disponible">No Disponible</option>
+          </select>
+          {estado}
         </div>
         <div className="mb-3">
           <label className="form-label">Producto</label>
@@ -203,7 +173,7 @@ const CompEditarVentas = () => {
           Editar
         </button>
       </form>
-    </div>
+    </>
   );
 };
 
