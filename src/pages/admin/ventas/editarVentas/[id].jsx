@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import SideBar from "../../../../layouts/SideBar";
-import { RadioButton } from "primereact/radiobutton";
+import swal from "sweetalert";
 
 const URI = "http://localhost:4000/api/tienda/editarVenta/";
 
@@ -43,21 +42,49 @@ const CompEditarVentas = () => {
   //Procedimiento para actualizar
   const update = async (e) => {
     e.preventDefault();
-    await axios.put(
-      URI + idVenta,
-      {
-        idUsuario: idUsuario,
-        estado: estado,
-        cantidad: cantidad,
-        producto: producto,
-        descripcion: descripcion,
-        categoria: categoria,
-        precio: precio,
-        fechaPublicacion: fechaPublicacion,
-      },
-      { withCredentials: true }
-    );
-    router.push("/ventas/mostrarVentas");
+    const response = await axios
+      .put(
+        URI + idVenta,
+        {
+          idUsuario: idUsuario,
+          estado: estado,
+          cantidad: cantidad,
+          producto: producto,
+          descripcion: descripcion,
+          categoria: categoria,
+          precio: precio,
+          fechaPublicacion: fechaPublicacion,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        {
+          swal({
+            title: "EDICION EXITOSA",
+            text: response?.data?.message,
+            icon: "success",
+            button: "Aceptar",
+            timer: "1500",
+          });
+        }
+        router.push("/admin/ventas");
+      })
+      .catch((err) => {
+        console.log(err);
+        swal({
+          title: "HA OCURRIDO UN ERROR",
+          text: err.response.data.message,
+          icon: "error",
+          button: "Aceptar",
+          timer: "1500",
+        });
+      });
+
+    if (response && response.data) {
+      console.log("Hola");
+      setError(null);
+      setSuccess(response?.data?.message);
+    }
   };
 
   useEffect(() => {

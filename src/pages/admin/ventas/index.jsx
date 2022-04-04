@@ -1,4 +1,4 @@
-import SideBar from "../../../layouts/SideBar";
+import SideBar from "../../../components/admin/SideBar";
 import Ventas from "./mostrarVentas";
 
 const index = () => {

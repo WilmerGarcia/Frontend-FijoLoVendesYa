@@ -8,12 +8,9 @@ import {
   FieldContainer,
   FieldError,
   FormContainer,
-  Input,
-  MutedLink,
-  SubmitButton,
 } from "../../../components/accountBox/common";
 import { Icon } from "@iconify/react";
-import SideBar from "../../../layouts/SideBar";
+import SideBar from "../../../components/admin/SideBar";
 
 //NOS CONECTAMOS CON EL SERVIDOR DEL BACKEND
 const URI = "http://localhost:4000/api/tienda/crearCategoria";
@@ -35,17 +32,14 @@ const CompRegistrarCategorias = () => {
       },
       { withCredentials: true }
     );
-    router.push("/categorias");
+    router.push("/admin/categorias");
   };
 
   return (
     <SideBar>
       <BoxContainer>
         <h1>NUEVA CATEGORIA</h1>
-        <Link
-          href="/admin/categorias/mostrarCategorias"
-          className="btn btn-prim mt-2 mb-2"
-        >
+        <Link href="/admin/categorias" className="btn btn-prim mt-2 mb-2">
           <Icon icon="fa:rotate-left" color="#0c97aa" />
         </Link>
         <FormContainer onSubmit={guardarCateg}>

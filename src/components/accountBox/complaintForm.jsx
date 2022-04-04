@@ -31,23 +31,67 @@ import { useRouter } from "next/router";
 
 //Validacion de campos vacios
 const validationSchema = yup.object({
-  descripcion: yup.string().required("Campo requerido"),
+  contenido: yup.string().required("Campo requerido"),
 });
 
 const theme = createTheme();
 
 export function Complaint(props) {
-  const [setSuccess] = useState(null);
-  const [setError] = useState(null);
+  const [sucess, setSuccess] = useState(null);
+  const [error, setError] = useState(null);
+
   const router = useRouter();
 
   const onSubmit = (values) => {
-    alert(JSON.stringify(values));
+    const { contenido } = values;
+    console.log(values);
+
+    swal({
+      title: "¿Seguro que desea realizar la denuncia?",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
+    }).then((acepta) => {
+      if (acepta) {
+        const response = axios
+          .post(
+            "http://localhost:4000/api/tienda/creardenuncia",
+            {
+              contenido: contenido,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => {
+            {
+              swal({
+                title: "DENUNCIA EXITOSA",
+                text: response?.data?.message,
+                icon: "success",
+                button: "Aceptar",
+                timer: "1500",
+              });
+            }
+            formik.resetForm();
+          })
+          .catch((error) => {
+            console.log(error);
+            swal({
+              title: "HA OCURRIDO UN ERROR",
+              text: err.response.data.message,
+              icon: "error",
+              button: "Aceptar",
+              timer: "1500",
+            });
+          });
+      }
+    });
   };
 
   //Inicializa los valores del formulario, onsubmit envia la informacion al useFormik y se validan los campos con el validationSchema
   const formik = useFormik({
-    initialValues: { pass: "" },
+    initialValues: { contenido: "" },
     validateOnBlur: true,
     onSubmit,
     validationSchema: validationSchema,
@@ -80,38 +124,25 @@ export function Complaint(props) {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              textarea
-              margin="normal"
-              required
-              fullWidth
-              type="textarea"
-              name="descripcion"
-              id="descripcion"
-              label="Descripción"
-              value={formik.values.descripcion}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-            />
             <TextareaAutosize
               maxRows={4}
               aria-label="Maxima altura"
               placeholder="Maximo 4 lineas"
               defaultValue=""
-              style={{ width: 200 }}
+              style={{ width: 400, height: 100 }}
               margin="normal"
               required
               type="textarea"
-              name="descripcion"
-              id="descripcion"
-              label="Descripción"
-              value={formik.values.descripcion}
+              name="contenido"
+              id="contenido"
+              label="contenido"
+              value={formik.values.contenido}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
             <FieldError>
-              {formik.touched.descripcion && formik.errors.descripcion
-                ? formik.errors.descripcion
+              {formik.touched.contenido && formik.errors.contenido
+                ? formik.errors.contenido
                 : ""}
             </FieldError>
 

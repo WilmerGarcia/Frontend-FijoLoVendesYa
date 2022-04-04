@@ -43,7 +43,7 @@ const CompActualizarCategoria = () => {
         withCredentials: true,
       }
     );
-    router.push("/categorias");
+    router.push("/admin/categorias");
   };
 
   //VISTA PARA EL USUARIO

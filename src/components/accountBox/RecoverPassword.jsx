@@ -47,13 +47,42 @@ const theme = createTheme();
 //   };
 
 export function RecoverPassword(props) {
-  const [setSuccess] = useState(null);
-  const [setError] = useState(null);
+  const [setSuccess] =useState(null);
+  const [ setError] = useState(null);
+
   const router = useRouter();
 
   const onSubmit = (values) => {
-    alert(JSON.stringify(values));
+    const {correo} = values;
+     console.log(values);
+     const response = axios
+       .post("http://localhost:4000/api/tienda/restablecerpassemail", {correo: correo})
+       .then(response => {swal({
+         title: "EXITOSO",
+         text: response?.data?.msg,
+         icon: "success",
+         button: "Aceptar",
+         timer: "1500"
+         
+     });formik.resetForm(); })
+       .catch((err) => {
+         console.log(err)
+           swal({
+             title: "HA OCURRIDO UN ERROR",
+             text: err.response.data.msg,
+             icon: "error",
+             button: "Aceptar",
+             timer: "1500"
+         });
+       });
+ 
+     if (response && response.data) {
+       console.log("Hola")
+       setError(null);
+       setSuccess(response?.data?.msg);
+     }
   };
+  
 
   //Inicializa los valores del formulario, onsubmit envia la informacion al useFormik y se validan los campos con el validationSchema
   const formik = useFormik({

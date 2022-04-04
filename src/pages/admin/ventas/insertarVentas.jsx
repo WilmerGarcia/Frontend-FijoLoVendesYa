@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
-import SideBar from "../../../layouts/SideBar";
+import SideBar from "../../../components/admin/SideBar";
 const URI = "http://localhost:4000/api/tienda/crearVenta/";
 
 const CompRegistrarVentas = () => {

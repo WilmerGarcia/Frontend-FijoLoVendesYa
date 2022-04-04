@@ -52,11 +52,8 @@ const CompMostrarVentas = () => {
               className="p-button-success mr-2"
             />
           </Link>
-          <Link href="/" className="btn btn-prim mt-2 mb-2">
-            <Icon icon="akar-icons:edit" color="#f5b921" height="35" />
-          </Link>
 
-          <table className="table table-dark table-sm">
+          <table className="table table-bordered">
             <thead className="table-primary">
               <tr>
                 <th>ID</th>

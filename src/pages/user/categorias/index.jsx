@@ -1,4 +1,4 @@
-import NavAndFooter from "../../../layouts/NavAndFooter";
+import NavAndFooter from "../../../components/User/NavAndFooter";
 import Categoria from "./mostrarCategorias";
 
 const categorias = () => {

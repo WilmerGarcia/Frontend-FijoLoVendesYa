@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
-import SideBar from "../../../layouts/SideBar";
+import NavAndFooter from "../../../components/User/NavAndFooter";
 const URI = "http://localhost:4000/api/tienda/crearVenta/";
 
 const CompRegistrarVentas = () => {
@@ -72,14 +72,13 @@ const CompRegistrarVentas = () => {
       .catch((err) => {
         console.log(err);
       });
-    router.push("/admin/ventas");
+    router.push("/user/ventas");
   };
 
   return (
-    <SideBar>
-      <h1>CREAR VENTA</h1>
-
-      <form onSubmit={store} id="form">
+    <NavAndFooter>
+      <form onSubmit={store} id="form" className="insertarVentas">
+        <h1 ClassName="centrarTitulo">CREAR VENTA</h1>
         <div className="mb-3">
           <label className="form-label">Estado</label>
           <br></br>
@@ -177,7 +176,7 @@ const CompRegistrarVentas = () => {
           Crear
         </button>
       </form>
-    </SideBar>
+    </NavAndFooter>
   );
 };
 

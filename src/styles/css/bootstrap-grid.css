@@ -15,6 +15,27 @@ html {
   box-sizing: inherit;
 }
 
+
+.insertarVentas{
+  max-width: 600px;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+
+}
+
+.centrarTitulo{
+  text-align: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+
+}
+
 .container,
 .container-fluid,
 .container-sm,

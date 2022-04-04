@@ -30,7 +30,7 @@ import { useRouter } from "next/router";
 
 //Validacion de campos vacios
 const validationSchema = yup.object({
-  correo: yup.string().required("Campo requerido"),
+  pass: yup.string().required("Campo requerido"),
   //   pass: yup.string().required("Campo requerido"),
 });
 
@@ -44,7 +44,7 @@ const theme = createTheme();
 //       email: data.get("email"),
 //       password: data.get("password"),
 //     });
-//   };
+//   };l
 
 export function NewPassword(props) {
   const [setSuccess] = useState(null);
@@ -52,7 +52,43 @@ export function NewPassword(props) {
   const router = useRouter();
 
   const onSubmit = (values) => {
-    alert(JSON.stringify(values));
+    const link = window.location.href;
+    const split = link.split("=");
+
+    const { pass, token } = values;
+    token = split[1];
+    console.log(values);
+    const response = axios
+      .post("http://localhost:4000/api/tienda/actualizarpass", {
+        pass: pass,
+        token: token,
+      })
+      .then((response) => {
+        swal({
+          title: "EXITOSO",
+          text: response?.data?.msg,
+          icon: "success",
+          button: "Aceptar",
+          timer: "1500",
+        });
+        formik.resetForm();
+      })
+      .catch((err) => {
+        console.log(err);
+        swal({
+          title: "HA OCURRIDO UN ERROR",
+          text: err.response.data.msg,
+          icon: "error",
+          button: "Aceptar",
+          timer: "1500",
+        });
+      });
+
+    if (response && response.data) {
+      console.log("Hola");
+      setError(null);
+      setSuccess(response?.data?.msg);
+    }
   };
 
   //Inicializa los valores del formulario, onsubmit envia la informacion al useFormik y se validan los campos con el validationSchema
@@ -148,7 +184,6 @@ export function NewPassword(props) {
               name="pass"
               id="pass"
               label="Contraseña"
-              autoComplete="current-password"
               value={formik.values.pass}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -164,17 +199,15 @@ export function NewPassword(props) {
               required
               fullWidth
               type="password"
-              name="pass"
-              id="pass"
+              name="passConfirmation"
               label="Repita la Contraseña"
-              autoComplete="current-password"
-              value={formik.values.pass}
+              value={formik.values.passConfirmation}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
             <FieldError>
-              {formik.touched.pass && formik.errors.pass
-                ? formik.errors.pass
+              {formik.touched.passConfirmation && formik.errors.passConfirmation
+                ? formik.errors.passConfirmation
                 : ""}
             </FieldError>
 
@@ -186,6 +219,11 @@ export function NewPassword(props) {
             >
               Enviar
             </Button>
+            <Grid item>
+              <Link href="/login" variant="body2">
+                {"Iniciar sesión"}
+              </Link>
+            </Grid>
           </Box>
         </Box>
       </Container>

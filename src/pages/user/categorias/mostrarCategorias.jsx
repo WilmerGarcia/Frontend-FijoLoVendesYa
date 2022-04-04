@@ -33,16 +33,7 @@ const CompMostrarCategorias = () => {
     <div className="container">
       <div className="row">
         <div className="col">
-          <Link
-            href="/admin/categorias/insertarCategorias"
-            className="btn btn-prim mt-2 mb-2"
-          >
-            <Icon icon="bi:plus-square-fill" color="#0c97aa" height="30" />
-          </Link>
-          <Link href="/categorias/" className="btn btn-prim mt-2 mb-2">
-            <Icon icon="ph:key-return-bold" color="#0c97aa" height="40" />
-          </Link>
-          <table className="table table-dark table-sm">
+          <table className="table table-bordered">
             <thead className="table-primary">
               <tr>
                 <th>Nombre</th>
