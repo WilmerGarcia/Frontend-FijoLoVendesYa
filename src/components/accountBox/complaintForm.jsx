@@ -32,6 +32,7 @@ import { useRouter } from "next/router";
 //Validacion de campos vacios
 const validationSchema = yup.object({
   contenido: yup.string().required("Campo requerido"),
+  motivo:yup.string().required("Campo requerido")
 });
 
 const theme = createTheme();
