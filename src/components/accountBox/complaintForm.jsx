@@ -32,7 +32,6 @@ import { useRouter } from "next/router";
 //Validacion de campos vacios
 const validationSchema = yup.object({
   contenido: yup.string().required("Campo requerido"),
-  motivo:yup.string().required("Campo requerido")
 });
 
 const theme = createTheme();
@@ -44,7 +43,7 @@ export function Complaint(props) {
   const router = useRouter();
 
   const onSubmit = (values) => {
-    const { motivo, contenido } = values;
+    const { contenido } = values;
     console.log(values);
 
     swal({
@@ -59,7 +58,6 @@ export function Complaint(props) {
             "http://localhost:4000/api/tienda/creardenuncia",
             {
               contenido: contenido,
-              motivo:motivo
             },
             {
               withCredentials: true,
@@ -126,27 +124,6 @@ export function Complaint(props) {
             noValidate
             sx={{ mt: 1 }}
           >
-
-
-          <div className="mb-3">
-          <label className="form-label">Seleccione el motivo de la denuncia</label>
-          <br></br>
-          <select
-            name="motivo"
-            className="form-select"
-            onChange={formik.handleChange}
-            value={formik.values.motivo}
-            onBlur={formik.handleBlur}
-          >
-            <option value="Robo">Robo</option>
-            <option value="Pagina falsa">Pagina falsa</option>
-            <option value="Fraude o Estafa">Fraude o Estafa</option>
-            <option value="Ventas no autorizadas">Ventas no autorizadas</option>
-            <option value="Violencia">Violencia</option>
-          </select>
-          </div>  
-
-          <label className="form-label">Escriba la descripción de la denuncia</label>
             <TextareaAutosize
               maxRows={4}
               aria-label="Maxima altura"
