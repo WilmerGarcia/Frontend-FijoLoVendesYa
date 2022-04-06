@@ -79,6 +79,7 @@ const CompRegistrarVentas = () => {
     <NavAndFooter>
       <form onSubmit={store} id="form" className="insertarVentas">
         <h1 ClassName="centrarTitulo">CREAR VENTA</h1>
+        
         <div className="mb-3">
           <label className="form-label">Estado</label>
           <br></br>
